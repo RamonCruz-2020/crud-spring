@@ -52,11 +52,11 @@ public class CourseController {
     }
 
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<Object> remove(@PathVariable Long courseId, @RequestBody Course course){
+    public ResponseEntity<Object> remove(@PathVariable Long courseId){
         if(!courseRepository.existsById(courseId)){
             return ResponseEntity.notFound().build();
         }
-        courseRepository.delete(course);
+        courseRepository.deleteById(courseId);
         return ResponseEntity.noContent().build();
     }
 
