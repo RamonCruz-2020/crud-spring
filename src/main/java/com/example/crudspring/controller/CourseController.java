@@ -3,6 +3,7 @@ package com.example.crudspring.controller;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,15 @@ public class CourseController {
         }
         courseRepository.save(course);
         return ResponseEntity.ok(course);
+    }
+
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Object> remove(@PathVariable Long courseId, @RequestBody Course course){
+        if(!courseRepository.existsById(courseId)){
+            return ResponseEntity.notFound().build();
+        }
+        courseRepository.delete(course);
+        return ResponseEntity.noContent().build();
     }
 
 }
